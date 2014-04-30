@@ -1,0 +1,34 @@
+@html.extend('layout', function(model){
+
+	@html.block('content', function(model){
+		<h1>Dead Drop</h1>
+
+		<p>Welcome to Dead Drop!</p>
+
+		<h2>Files in this bucket</h2>
+		@if (model.emptyBucket) {
+			<p><em>No files!</em></p>
+		}
+		else {
+			<ul>
+			@model.files.forEach(function(file) {
+				<li><a href="/buckets/@model.bucket/@file.name">@file.name (@file.size)</a></li>
+			})
+			</ul>
+
+			<p>
+				<button>Empty bucket</button>
+			</p>
+		}
+		
+
+		
+
+		<form method="post" action="/upload/@model.bucket" enctype="multipart/form-data">
+
+			<input type="file" name="file" />
+
+			<button type="submit">Go!</button>
+		</form>
+	})
+})
