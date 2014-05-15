@@ -3,13 +3,24 @@
 	<head>
 		<meta charset="utf-8">
 		<title>@model.title</title>
-		<link rel="stylesheet" href="stylesheets/style.css" type="text/css" media="screen" charset="utf-8">
+		<link href='http://fonts.googleapis.com/css?family=Special+Elite' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="/stylesheets/dropzone.css" type="text/css">
+		<link rel="stylesheet" href="/stylesheets/style.css" type="text/css" media="screen" charset="utf-8">
+		
 	</head>
 <body>
+	<img src="/images/spy.png" id="spy" />
+
+	<h1>Dead Drop</h1>
+
 	@html.block('content')
 
 	<footer>
 		@html.block('footer')
 	</footer>
+
+	<script src="/javascripts/dropzone.js"></script>
+
+	@html.block('scripts')
 </body>
 </html>

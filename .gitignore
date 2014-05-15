@@ -26,3 +26,4 @@ node_modules
 
 # Dead Drop Buckets
 public/buckets/*
+public/stylesheets/*.css

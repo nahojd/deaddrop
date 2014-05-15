@@ -1,8 +1,46 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  padding: 20px 50px;
+  font: 14px "Special Elite", Helvetica, Arial, sans-serif;
+}
+
+h1 {
+	font-size: 36px;
 }
 
 a {
   color: #00B7FF;
 }
+
+#spy {
+	position: fixed;
+	top: 0;
+	right: 0;
+}
+
+.dropzone-previews {
+	.dz-preview {
+		.dz-details {
+			width: 250px;
+			height: 40px;
+
+			.dz-size {
+				margin-top: 5px;
+			}
+		}
+	}
+}
+
+.clearfix {
+  *zoom: 1;
+
+	&:before, &:after {
+		display: table;
+		content: "";
+		line-height: 0;
+	}
+
+	&:after {
+		clear: both;
+	}
+}
+

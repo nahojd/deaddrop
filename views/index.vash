@@ -1,34 +1,45 @@
 @html.extend('layout', function(model){
 
 	@html.block('content', function(model){
-		<h1>Dead Drop</h1>
-
-		<p>Welcome to Dead Drop!</p>
-
+		
+		
 		<h2>Files in this bucket</h2>
 		@if (model.emptyBucket) {
-			<p><em>No files!</em></p>
+			<p id="no-files"><em>No files!</em></p>
 		}
-		else {
-			<ul>
-			@model.files.forEach(function(file) {
-				<li><a href="/buckets/@model.bucket/@file.name">@file.name (@file.size)</a></li>
-			})
-			</ul>
+		<form method="post" action="/upload/@model.bucket" enctype="multipart/form-data" class="dropzone" id="upload-form">
+		<div id="files" class="dropzone-previews" data-bucket-name="@model.bucket">
+		@model.files.forEach(function(file) {
+			<div class="dz-preview">
+				<a href="/buckets/@model.bucket/@file.name">
+					<div class="dz-details">
+						<div class="dz-filename">
+							<span data-dz-name="">@file.name</span>
+						</div>
+						<div class="dz-size">
+							<strong>@file.size</strong>
+						</div>
+					</div>
+				</a>
 
-			<p>
-				<button>Empty bucket</button>
-			</p>
-		}
-		
-
-		
-
-		<form method="post" action="/upload/@model.bucket" enctype="multipart/form-data">
-
-			<input type="file" name="file" />
-
-			<button type="submit">Go!</button>
+			</div>
+		})
+		</div>
 		</form>
+		<p>
+			<button>Empty bucket</button>
+		</p>
+		
+
+		
+
+		
+
+
+		
+	})
+
+	@html.block('scripts', function(model) {
+		<script src="/javascripts/deaddrop.js"></script>
 	})
 })
