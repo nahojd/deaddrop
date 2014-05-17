@@ -6,10 +6,10 @@
 		<link href='http://fonts.googleapis.com/css?family=Special+Elite' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" href="/stylesheets/dropzone.css" type="text/css">
 		<link rel="stylesheet" href="/stylesheets/style.css" type="text/css" media="screen" charset="utf-8">
-		
+
 	</head>
 <body>
-	<img src="/images/spy.png" id="spy" />
+	<img src="/images/logo.png" id="spy" />
 
 	<h1>Dead Drop</h1>
 
