@@ -7,7 +7,7 @@ var router = express.Router();
 router.get('/', function(req, res) {
 	getRandomBucket(function(bucket) {
 		res.writeHead(302, { Connection: 'close', Location: '/' + bucket });
-		res.end();	
+		res.end();
 	});
 });
 
@@ -20,6 +20,7 @@ router.get('/:bucket', function(req, res) {
 			if (!fileNames) {
 				res.render('index', {
 					bucket: bucket,
+					files: [],
 					emptyBucket: true
 				});
 				return;
@@ -32,14 +33,14 @@ router.get('/:bucket', function(req, res) {
 				fileinfo.push({ name: fileNames[i], size: fileSizeIEC(stat.size) });
 			}
 
-			res.render('index', { 
+			res.render('index', {
 				bucket: bucket,
 				files: fileinfo,
 				emptyBucket: fileinfo.length === 0
-			});	
+			});
 	});
 
-	
+
 });
 
 function getRandomBucket(callback) {

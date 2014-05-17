@@ -16,6 +16,8 @@
 				file.previewElement.replaceChild(link, details);
 
 				link.appendChild(details);
+
+				document.querySelector('#no-files').style.display = 'none';
 			});
 		}
 	};
