@@ -2,7 +2,10 @@ var fs = require('fs-extra');
 var path = require('path');
 
 function getBucketDir(bucketName) {
-	return path.resolve('./public/buckets/' + bucketName);
+	if (bucketName)
+		return path.resolve('./public/buckets' + bucketName);
+
+	return path.resolve('./public/buckets');	
 }
 
 function getRandomBucket(callback) {
