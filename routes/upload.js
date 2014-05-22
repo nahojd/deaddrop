@@ -2,24 +2,35 @@ var express = require('express');
 var Busboy = require('busboy');
 var path = require('path');
 var fs = require('fs-extra');
+var bucketeer = require('../model/bucket');
 
 var router = express.Router();
 
 /* Upload a file */
 router.post('/:bucket', function(req, res) {
-  	
-	var busboy = new Busboy({ headers: req.headers });
+	var busboy = new Busboy({ 
+		headers: req.headers,
+		limits: {
+			fileSize: 100 * 1024 * 1024 //100 MiB
+		} 
+	});
+
 	busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
 		var uploadDir = path.resolve('./public/buckets/' + req.params.bucket);
 
+		bucketeer.checkFreeSpace(uploadDir, function(ok) {
+			if (ok) {
+				saveFile(req, uploadDir, filename, file);
+			}
+			else {
+				res.send(503, "Sorry, all the buckets are full. You'll have to wait for some of them to empty.");
+				res.end();
+				return;
+			}
+		});	
 
-		var buckets = fs.readdirSync(path.resolve('./public/buckets'))
-		if (buckets.indexOf(req.params.bucket) < 0)
-			fs.mkdirSync(uploadDir);
 
-		var saveTo = path.join(uploadDir, path.basename(filename));
-		console.log('Saving ' + saveTo);
-		file.pipe(fs.createWriteStream(saveTo));
+		
 	});
 	
 	busboy.on('finish', function() {
@@ -29,5 +40,15 @@ router.post('/:bucket', function(req, res) {
 
     req.pipe(busboy);
 });
+
+function saveFile(req, uploadDir, filename, file) {
+	var buckets = fs.readdirSync(path.resolve('./public/buckets'))
+	if (buckets.indexOf(req.params.bucket) < 0)
+		fs.mkdirSync(uploadDir);
+
+	var saveTo = path.join(uploadDir, path.basename(filename));
+	console.log('Saving ' + saveTo);
+	file.pipe(fs.createWriteStream(saveTo));
+}
 
 module.exports = router;

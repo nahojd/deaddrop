@@ -17,7 +17,9 @@
 
 				link.appendChild(details);
 
-				document.querySelector('#no-files').style.display = 'none';
+				var noFilesLabel = document.querySelector('#no-files');
+				if (noFilesLabel)
+					noFilesLabel.style.display = 'none';
 			});
 		}
 	};

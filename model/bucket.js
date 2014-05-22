@@ -1,3 +1,6 @@
+var fs = require('fs-extra');
+var path = require('path');
+
 function getRandomBucket(callback) {
 	fs.readdir(path.resolve('./public/buckets'), function(err, buckets) {
 		var bucket = generateBucketName();
@@ -25,7 +28,26 @@ function fileSizeIEC(a,b,c,d,e){
 }
 //KiB,MiB,GiB,TiB,PiB,EiB,ZiB,YiB
 
+function checkFreeSpace(uploadDir, callback) {
+	var diskspace = require('diskspace');
+
+	//On Windows, only use the disk, e.g. C:
+	var disk = uploadDir.length >= 2 && uploadDir[1] === ':' ? uploadDir[0] : uploadDir;
+
+	diskspace.check(disk, function(total, free, status) {
+		//Min free space 5GB, or 20%, whichever is least.
+		if (free >= 5368709120 || free / total > 0.2) {
+			callback(true);
+			return;
+		}
+
+		console.log('WARNING! Only ' + fileSizeIEC(free) + ' bytes free of ' + fileSizeIEC(total) + ' bytes total on ' + disk);
+		callback(false);
+	});
+}
+
 module.exports = {
 	getRandomBucket: getRandomBucket,
-	formatFileSize: fileSizeIEC
+	formatFileSize: fileSizeIEC,
+	checkFreeSpace: checkFreeSpace
 };
