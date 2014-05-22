@@ -43,11 +43,12 @@ router.post('/:bucket', function(req, res) {
 });
 
 function saveFile(req, uploadDir, filename, file) {
-	var buckets = fs.readdirSync(bucketeer.getBucketDir('/'));
+	var buckets = fs.readdirSync(bucketeer.getBucketDir());
 	if (buckets.indexOf(req.params.bucket) < 0)
 		fs.mkdirSync(uploadDir);
 
 	var saveTo = path.join(uploadDir, path.basename(filename));
+
 	console.log('Saving ' + saveTo);
 	file.pipe(fs.createWriteStream(saveTo));
 }

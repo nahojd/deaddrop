@@ -3,9 +3,9 @@ var path = require('path');
 
 function getBucketDir(bucketName) {
 	if (bucketName)
-		return path.resolve('./public/buckets' + bucketName);
+		return path.resolve('./public/buckets/' + bucketName);
 
-	return path.resolve('./public/buckets');	
+	return path.resolve('./public/buckets/');	
 }
 
 function getRandomBucket(callback) {
@@ -38,8 +38,7 @@ function fileSizeIEC(a,b,c,d,e){
 function checkFreeSpace(uploadDir, callback) {
 	var diskspace = require('diskspace');
 
-	//On Windows, only use the disk, e.g. C:
-	var disk = uploadDir.length >= 2 && uploadDir[1] === ':' ? uploadDir[0] : uploadDir;
+	var disk = uploadDir[0]; //Like "C" on Windows or "/" on Linux. Let's ignore other mount paths for now...
 
 	diskspace.check(disk, function(total, free, status) {
 		//Min free space 5GB, or 20%, whichever is least.
