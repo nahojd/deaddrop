@@ -58,5 +58,8 @@ app.use(function(err, req, res, next) {
     });
 });
 
+//Start the cleaning job
+var cleaner = require('./model/cleaner');
+cleaner.start(12 * 60 * 60 * 1000, 60 * 60 * 1000); 
 
 module.exports = app;

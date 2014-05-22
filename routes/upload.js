@@ -6,6 +6,7 @@ var bucketeer = require('../model/bucket');
 
 var router = express.Router();
 
+
 /* Upload a file */
 router.post('/:bucket', function(req, res) {
 	var busboy = new Busboy({ 
@@ -16,7 +17,7 @@ router.post('/:bucket', function(req, res) {
 	});
 
 	busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
-		var uploadDir = path.resolve('./public/buckets/' + req.params.bucket);
+		var uploadDir = bucketeer.getBucketDir(req.params.bucket);
 
 		bucketeer.checkFreeSpace(uploadDir, function(ok) {
 			if (ok) {
@@ -42,7 +43,7 @@ router.post('/:bucket', function(req, res) {
 });
 
 function saveFile(req, uploadDir, filename, file) {
-	var buckets = fs.readdirSync(path.resolve('./public/buckets'))
+	var buckets = fs.readdirSync(bucketeer.getBucketDir('/'));
 	if (buckets.indexOf(req.params.bucket) < 0)
 		fs.mkdirSync(uploadDir);
 

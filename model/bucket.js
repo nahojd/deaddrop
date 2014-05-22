@@ -1,8 +1,12 @@
 var fs = require('fs-extra');
 var path = require('path');
 
+function getBucketDir(bucketName) {
+	return path.resolve('./public/buckets/' + bucketName);
+}
+
 function getRandomBucket(callback) {
-	fs.readdir(path.resolve('./public/buckets'), function(err, buckets) {
+	fs.readdir(getBucketDir(), function(err, buckets) {
 		var bucket = generateBucketName();
 		while(buckets.indexOf(bucket) >= 0) {
 			bucket = generateBucketName();
@@ -47,6 +51,7 @@ function checkFreeSpace(uploadDir, callback) {
 }
 
 module.exports = {
+	getBucketDir: getBucketDir,
 	getRandomBucket: getRandomBucket,
 	formatFileSize: fileSizeIEC,
 	checkFreeSpace: checkFreeSpace
