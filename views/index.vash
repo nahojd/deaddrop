@@ -4,30 +4,34 @@
 		
 		
 		<h2>Files in this bucket</h2>
-		@if (model.emptyBucket) {
-			<p id="no-files"><em>No files!</em></p>
-		}
+		
 		<form method="post" action="/upload/@model.bucket" enctype="multipart/form-data" class="dropzone" id="upload-form">
-		<div id="files" class="dropzone-previews" data-bucket-name="@model.bucket">
-		@model.files.forEach(function(file) {
-			<div class="dz-preview">
-				<a href="/buckets/@model.bucket/@file.name">
-					<div class="dz-details">
-						<div class="dz-filename">
-							<span data-dz-name="">@file.name</span>
-						</div>
-						<div class="dz-size">
-							<strong>@file.size</strong>
-						</div>
-					</div>
-				</a>
+			<div id="files" class="dropzone-previews" data-bucket-name="@model.bucket">
+				@if (model.emptyBucket) {
+					<p id="no-files"><em>No files!</em></p>
+				}
 
+			@model.files.forEach(function(file) {
+				<div class="dz-preview">
+					<a href="/buckets/@model.bucket/@file.name">
+						<div class="dz-details">
+							<div class="dz-filename">
+								<span data-dz-name="">@file.name</span>
+							</div>
+							<div class="dz-size">
+								<strong>@file.size</strong>
+							</div>
+						</div>
+					</a>
+
+				</div>
+			})
 			</div>
-		})
-		</div>
 		</form>
 		<p>
-			<button>Empty bucket</button>
+			<form method="post" action="/@model.bucket/empty">
+				<button type="submit">Empty bucket</button>
+			</form>
 		</p>
 		
 

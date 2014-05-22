@@ -5,10 +5,6 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var routes = require('./routes/index');
-var upload = require('./routes/upload');
-var test = require('./routes/test');
-
 var app = express();
 
 // view engine setup
@@ -24,9 +20,11 @@ app.use(cookieParser());
 app.use(require('less-middleware')({ src: path.join(__dirname, 'public') }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+/// Define route handlers
+var root = require('./routes/index');
+var upload = require('./routes/upload');
 app.use('/upload', upload);
-app.use('/test', test);
-app.use('/', routes);
+app.use('/', root);
 
 
 /// catch 404 and forwarding to error handler

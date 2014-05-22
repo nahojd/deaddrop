@@ -1,7 +1,7 @@
 var express = require('express');
 var Busboy = require('busboy');
 var path = require('path');
-var fs = require('fs');
+var fs = require('fs-extra');
 
 var router = express.Router();
 
