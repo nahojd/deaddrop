@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<title>@model.title</title>
-		<link href='http://fonts.googleapis.com/css?family=Special+Elite' rel='stylesheet' type='text/css'>
+		<link href='https://fonts.googleapis.com/css?family=Special+Elite' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" href="/stylesheets/dropzone.css" type="text/css">
 		<link rel="stylesheet" href="/stylesheets/style.css" type="text/css" media="screen" charset="utf-8">
 
