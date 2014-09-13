@@ -1,5 +1,4 @@
 var express = require('express');
-//var fs = require('fs');
 var fs = require('fs-extra');
 var path = require('path');
 var router = express.Router();
@@ -16,7 +15,8 @@ router.get('/', function(req, res) {
 
 router.get('/:bucket', function(req, res) {
 	var bucket = req.params.bucket;
-	var bucketPath = path.resolve('./public/buckets/' + bucket)
+	console.log("Showing bucket " + bucket);
+	var bucketPath = path.resolve('./public/buckets/' + bucket);
 
 	var files = fs.readdir(bucketPath, function(err, fileNames) {
 			if (!fileNames) {

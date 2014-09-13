@@ -14,6 +14,7 @@
     "express": "~4.0.0",
     "fs-extra": "",
     "less-middleware": "0.1.15",
+    "markdown": "",
     "morgan": "~1.0.0",
     "static-favicon": "~1.0.0",
     "vash": "~0.7.11"

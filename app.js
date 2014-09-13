@@ -23,7 +23,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 /// Define route handlers
 var root = require('./routes/index');
 var upload = require('./routes/upload');
+var faq = require('./routes/faq');
 app.use('/upload', upload);
+app.use('/faq', faq);
 app.use('/', root);
 
 
