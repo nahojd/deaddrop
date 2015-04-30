@@ -1,22 +1,22 @@
 {
   "name": "dead-drop",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "scripts": {
     "start": "node ./bin/www"
   },
   "dependencies": {
-    "body-parser": "~1.0.0",
+    "body-parser": "",
     "busboy": "",
-    "cookie-parser": "~1.0.1",
-    "debug": "~0.7.4",
+    "cookie-parser": "",
+    "debug": "",
     "diskspace": "",
-    "express": "~4.0.0",
+    "express": "",
     "fs-extra": "",
-    "less-middleware": "0.1.15",
+    "less-middleware": "",
     "markdown": "",
-    "morgan": "~1.0.0",
-    "static-favicon": "~1.0.0",
-    "vash": "~0.7.11"
+    "morgan": "",
+    "serve-favicon": "",
+    "vash": ""
   }
 }

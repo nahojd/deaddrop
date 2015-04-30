@@ -1,9 +1,10 @@
 var express = require('express');
 var path = require('path');
-var favicon = require('static-favicon');
+//var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var lessMiddleware = require('less-middleware');
 
 var app = express();
 
@@ -11,13 +12,16 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'vash');
 
-app.use(favicon());
+//app.use(favicon('/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cookieParser());
-app.use(require('less-middleware')({ src: path.join(__dirname, 'public') }));
+app.use(lessMiddleware('/less', {
+  dest: '/css',
+  pathRoot: path.join(__dirname, 'public')
+}));
 app.use(express.static(path.join(__dirname, 'public')));
 
 /// Define route handlers
