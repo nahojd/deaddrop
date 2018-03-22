@@ -2,8 +2,8 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
+		<meta name="referrer" content="no-referrer">
 		<title>@model.title</title>
-		<link href='https://fonts.googleapis.com/css?family=Special+Elite' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" href="/css/dropzone.css" type="text/css">
 		<link rel="stylesheet" href="/css/style.css" type="text/css" media="screen" charset="utf-8">
 
