@@ -29,9 +29,8 @@ function generateBucketName()
     return text;
 }
 
-function fileSizeIEC(a,b,c,d,e){
- return (b=Math,c=b.log,d=1024,e=c(a)/c(d)|0,a/b.pow(d,e)).toFixed(2)
- +' '+(e?'KMGTPEZY'[--e]+'iB':'Bytes')
+function fileSizeIEC(a,b,c,d,e) {
+ return (b=Math,c=b.log,d=1024,e=c(a)/c(d)|0,a/b.pow(d,e)).toFixed(2) +' '+(e?'KMGTPEZY'[--e]+'iB':'Bytes');
 }
 //KiB,MiB,GiB,TiB,PiB,EiB,ZiB,YiB
 
@@ -40,9 +39,9 @@ function checkFreeSpace(uploadDir, callback) {
 
 	var disk = uploadDir[0]; //Like "C" on Windows or "/" on Linux. Let's ignore other mount paths for now...
 
-	diskspace.check(disk, function(total, free, status) {
+	diskspace.check(disk, function(err, result) {
 		//Min free space 5GB, or 20%, whichever is least.
-		if (free >= 5368709120 || free / total > 0.2) {
+		if (result.free >= 5368709120 || result.free / result.total > 0.2) {
 			callback(true);
 			return;
 		}
