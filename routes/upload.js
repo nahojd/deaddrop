@@ -12,7 +12,7 @@ router.post('/:bucket', function(req, res) {
 	var busboy = new Busboy({ 
 		headers: req.headers,
 		limits: {
-			fileSize: 100 * 1024 * 1024 //100 MiB
+			fileSize: 256 * 1024 * 1024 //256 MiB
 		} 
 	});
 
@@ -24,6 +24,7 @@ router.post('/:bucket', function(req, res) {
 				saveFile(req, uploadDir, filename, file);
 			}
 			else {
+				file.resume();
 				res.send(503, "Sorry, all the buckets are full. You'll have to wait for some of them to empty.");
 				res.end();
 				return;

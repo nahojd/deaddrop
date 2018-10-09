@@ -3,7 +3,7 @@
 	var bucketName = document.querySelector('#files').dataset.bucketName;
 
 	Dropzone.options.uploadForm = {
-		maxFileSize: 10, //MB
+		maxFilesize: 256, //MB
 		previewsContainer: '#files',
 		createImageThumbnails: false,
 		init: function() {
