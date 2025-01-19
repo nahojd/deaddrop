@@ -1,5 +1,5 @@
 var express = require('express');
-var Busboy = require('busboy');
+var busboy = require('busboy');
 var path = require('path');
 var fs = require('fs-extra');
 var bucketeer = require('../model/bucket');
@@ -9,14 +9,14 @@ var router = express.Router();
 
 /* Upload a file */
 router.post('/:bucket', function(req, res) {
-	var busboy = new Busboy({ 
+	var bb = busboy({
 		headers: req.headers,
 		limits: {
 			fileSize: 256 * 1024 * 1024 //256 MiB
 		} 
 	});
 
-	busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
+	bb.on('file', function(fieldname, file, filename, encoding, mimetype) {
 		var uploadDir = bucketeer.getBucketDir(req.params.bucket);
 
 		bucketeer.checkFreeSpace(uploadDir, function(ok) {
@@ -35,12 +35,12 @@ router.post('/:bucket', function(req, res) {
 		
 	});
 	
-	busboy.on('finish', function() {
+	bb.on('finish', function() {
 		res.writeHead(302, { Connection: 'close', Location: '/' + req.params.bucket });
 		res.end();
-    });
+	});
 
-    req.pipe(busboy);
+	req.pipe(bb);
 });
 
 function saveFile(req, uploadDir, filename, file) {
@@ -48,7 +48,7 @@ function saveFile(req, uploadDir, filename, file) {
 	if (buckets.indexOf(req.params.bucket) < 0)
 		fs.mkdirSync(uploadDir);
 
-	var saveTo = path.join(uploadDir, path.basename(filename));
+	var saveTo = path.join(uploadDir, path.basename(filename.filename));
 
 	console.log('Saving ' + saveTo);
 	file.pipe(fs.createWriteStream(saveTo));
